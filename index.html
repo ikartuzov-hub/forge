@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forge · SeedWave</title>
+<meta name="description" content="Расскажи идею — ИИ соберёт продукт. Forge — конструктор SeedWave: из идеи в живой продукт.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Manrope:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#161310; --ink:#F0E7DD; --muted:#B7A99A; --accent:#E2622E;
+  --line:#34291F; --card:#1E1A15; --cardline:#2C251D;
+}
+:root[data-theme="light"]{
+  --bg:#F6F0E9; --ink:#241B14; --muted:#6B5D4F; --accent:#C9551F;
+  --line:#E4D8CB; --card:#FFFFFF; --cardline:#ECE2D6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'Manrope',system-ui,sans-serif; font-weight:400;
+  line-height:1.6; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden; transition:background .4s ease,color .4s ease;
+}
+.wrap{max-width:980px; margin:0 auto; padding:0 22px}
+
+/* brandmark + reveal */
+.brandmark{position:fixed; top:13px; left:16px; width:30px; height:30px; z-index:50}
+.brandmark svg{width:100%; height:100%; display:block}
+@keyframes markIn{
+  0%{transform:translate(calc(50vw - 31px),calc(50vh - 31px)) scale(7); opacity:0}
+  16%{opacity:1}
+  52%{transform:translate(calc(50vw - 31px),calc(50vh - 31px)) scale(7); opacity:1}
+  100%{transform:translate(0,0) scale(1); opacity:1}
+}
+.reveal .brandmark{animation:markIn 2.5s cubic-bezier(.65,0,.25,1) both}
+@keyframes fadeUp{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+.reveal .page{opacity:0; animation:fadeUp .8s ease 1.7s both}
+
+/* top bar */
+.top{position:fixed; top:11px; right:14px; z-index:50; display:flex; gap:8px; align-items:center}
+.top button{
+  background:var(--card); color:var(--ink); border:1px solid var(--cardline);
+  border-radius:10px; height:36px; padding:0 12px; cursor:pointer;
+  font-family:'Manrope',sans-serif; font-size:14px; font-weight:500;
+  display:inline-flex; align-items:center; gap:6px; transition:border-color .2s,background .2s;
+}
+.top button:hover{border-color:var(--accent)}
+.top button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.langmenu{position:absolute; top:44px; right:0; background:var(--card);
+  border:1px solid var(--cardline); border-radius:12px; padding:6px; min-width:150px;
+  display:none; flex-direction:column; gap:2px; box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.langmenu.open{display:flex}
+.langmenu button{justify-content:flex-start; width:100%; border:1px solid transparent; height:34px}
+.langmenu button[aria-current="true"]{color:var(--accent); border-color:var(--cardline)}
+
+/* hero */
+.hero{min-height:100svh; display:flex; flex-direction:column; justify-content:center;
+  padding:120px 0 70px; position:relative}
+.eyebrow{font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:20px}
+.hero h1{font-family:'Space Grotesk',sans-serif; font-weight:500;
+  font-size:clamp(2.1rem,6.4vw,4.1rem); line-height:1.04; letter-spacing:-.02em;
+  max-width:14ch; margin-bottom:22px}
+.hero .sub{font-size:clamp(1rem,2.2vw,1.22rem); color:var(--muted); max-width:34ch; margin-bottom:40px}
+.scrolllink{display:inline-flex; align-items:center; gap:9px; color:var(--ink);
+  text-decoration:none; font-weight:500; font-size:15px; opacity:.85}
+.scrolllink:hover{opacity:1; color:var(--accent)}
+.scrolllink .dot{width:30px; height:30px; border:1px solid var(--line); border-radius:50%;
+  display:grid; place-items:center; font-size:13px}
+
+/* sections */
+section{padding:74px 0}
+.sec-eyebrow{font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:8px}
+.sec-title{font-family:'Space Grotesk',sans-serif; font-weight:500;
+  font-size:clamp(1.5rem,3.4vw,2.1rem); letter-spacing:-.015em; margin-bottom:8px}
+.sec-sub{color:var(--muted); margin-bottom:38px}
+
+/* steps */
+.steps{display:grid; grid-template-columns:repeat(4,1fr); gap:18px}
+.step{border-top:1px solid var(--line); padding-top:16px}
+.step .n{font-family:'Space Mono',monospace; font-size:13px; color:var(--accent); margin-bottom:14px}
+.step h3{font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:1.12rem; margin-bottom:5px}
+.step p{font-size:.93rem; color:var(--muted); line-height:1.5}
+
+/* cases */
+.cases{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+.case{background:var(--card); border:1px solid var(--cardline); border-radius:16px;
+  padding:24px; display:flex; flex-direction:column; transition:border-color .25s,transform .25s}
+.case:hover{border-color:var(--accent); transform:translateY(-3px)}
+.case .head{display:flex; align-items:center; gap:11px; margin-bottom:20px}
+.case .mark{width:42px; height:42px; border-radius:11px; display:grid; place-items:center;
+  font-size:23px; border:1.5px solid var(--cardline)}
+.case .name{font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:1.18rem}
+.case .lbl{font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:3px}
+.case .idea{font-size:1rem; margin-bottom:15px; line-height:1.4}
+.case .arrow{color:var(--accent); margin-bottom:13px; font-size:15px}
+.case .result{font-size:1rem; color:var(--ink); font-weight:500; margin-bottom:22px; line-height:1.4}
+.case .open{margin-top:auto; align-self:flex-start; text-decoration:none; color:var(--accent);
+  font-weight:500; font-size:14px; border:1px solid var(--cardline); border-radius:9px;
+  padding:8px 15px; transition:background .2s,border-color .2s}
+.case .open:hover{border-color:var(--accent)}
+
+/* cta */
+.cta-sec{text-align:center; padding:88px 0}
+.cta-sec h2{font-family:'Space Grotesk',sans-serif; font-weight:500;
+  font-size:clamp(1.7rem,4.2vw,2.6rem); letter-spacing:-.015em; margin-bottom:30px; max-width:18ch; margin-inline:auto}
+.cta-btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none;
+  font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:1.12rem;
+  padding:17px 40px; border-radius:13px; transition:transform .18s,filter .2s}
+.cta-btn:hover{transform:translateY(-2px); filter:brightness(1.06)}
+.cta-btn:focus-visible{outline:2px solid var(--ink); outline-offset:3px}
+.cta-note{color:var(--muted); font-size:.95rem; margin-top:16px}
+
+/* footer */
+footer{border-top:1px solid var(--line); padding:34px 0 46px; text-align:center}
+footer a{color:var(--muted); text-decoration:none; transition:color .2s}
+footer a:hover{color:var(--accent)}
+.foot-mark{display:inline-flex; gap:8px; align-items:center; font-size:.92rem; color:var(--muted)}
+
+@media (max-width:720px){
+  .steps{grid-template-columns:repeat(2,1fr); gap:24px 18px}
+  .cases{grid-template-columns:1fr}
+  .hero{padding-top:104px}
+  section{padding:56px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  .reveal .brandmark{animation:none}
+  .reveal .page{animation:none; opacity:1}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<a class="brandmark" id="brand" href="#" aria-label="Forge">
+  <svg viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M36 16 V84"/><path d="M36 21 Q49 9 60 20 Q70 28 82 19"/><path d="M36 50 H70"/>
+  </svg>
+</a>
+
+<div class="top">
+  <button id="themeBtn" aria-label="Theme">☾</button>
+  <div style="position:relative">
+    <button id="langBtn" aria-haspopup="true" aria-expanded="false">🌐 <span id="langCur">RU</span></button>
+    <div class="langmenu" id="langMenu" role="menu"></div>
+  </div>
+</div>
+
+<div class="page">
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Forge · SeedWave</div>
+      <h1 id="tagline">Расскажи идею — ИИ соберёт продукт</h1>
+      <p class="sub" id="sub">Принеси сырую мысль. Уйдёшь с живым продуктом — как эти.</p>
+      <a class="scrolllink" href="#how"><span class="dot">↓</span><span id="scroll">Как это работает</span></a>
+    </div>
+  </header>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-eyebrow" id="how_eyebrow">01 — 04</div>
+      <h2 class="sec-title" id="how_title">Путь идеи</h2>
+      <div class="steps" id="steps"></div>
+    </div>
+  </section>
+
+  <section id="examples">
+    <div class="wrap">
+      <div class="sec-eyebrow" id="ex_title">Живые примеры</div>
+      <h2 class="sec-title" id="ex_sub">Каждый начинался как одна фраза</h2>
+      <div class="cases" id="cases"></div>
+    </div>
+  </section>
+
+  <section class="cta-sec">
+    <div class="wrap">
+      <h2 id="tagline2">Расскажи идею — ИИ соберёт продукт</h2>
+      <a class="cta-btn" id="ctaBtn" href="#">У меня есть идея</a>
+      <p class="cta-note" id="ctaNote">ИИ разберёт её бесплатно</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span class="foot-mark">© <a id="authorLink" href="#" target="_blank" rel="noopener">Igor Kartuzov</a> · <a id="hubLink" href="#">SeedWave</a></span>
+    </div>
+  </footer>
+</div>
+
+<script>
+const MANIFEST_DEFAULT={default:"ru",languages:["ru","en","pt","es","de"],
+  botUrl:"https://t.me/SeedWaveBot?start=forge_",
+  hubUrl:"https://ikartuzov-hub.github.io/seedwave-catalog/hub/",
+  authorUrl:"https://www.linkedin.com/in/igor-kartuzov/"};
+
+const params=new URLSearchParams(location.search);
+let MAN=MANIFEST_DEFAULT, UI={}, CASES=[], LANG="ru";
+
+function pickLang(man){
+  let l=params.get("lang")||localStorage.getItem("forge_lang")||(navigator.language||"ru").slice(0,2).toLowerCase();
+  return man.languages.includes(l)?l:man.default;
+}
+function applyTheme(t){
+  if(t==="light"){document.documentElement.setAttribute("data-theme","light");}
+  else{document.documentElement.removeAttribute("data-theme");}
+  document.getElementById("themeBtn").textContent = t==="light" ? "☀" : "☾";
+  localStorage.setItem("forge_theme",t);
+}
+function curTheme(){return params.get("theme")||localStorage.getItem("forge_theme")||"dark";}
+
+async function getJSON(path,fallback){
+  try{const r=await fetch(path,{cache:"no-cache"}); if(!r.ok)throw 0; return await r.json();}
+  catch(e){return fallback;}
+}
+
+function t(k){return UI[k]||k;}
+
+function render(){
+  document.documentElement.lang=LANG;
+  document.title="Forge · SeedWave";
+  set("tagline",t("tagline")); set("tagline2",t("tagline"));
+  set("sub",t("sub")); set("scroll",t("scroll"));
+  set("how_title",t("how_title")); set("ex_title",t("ex_title")); set("ex_sub",t("ex_sub"));
+  set("ctaNote",t("cta_note"));
+  document.getElementById("ctaBtn").textContent=t("cta");
+  document.getElementById("langCur").textContent=LANG.toUpperCase();
+  document.getElementById("themeBtn").setAttribute("aria-label", curTheme()==="light"?t("theme_light"):t("theme_dark"));
+
+  // steps
+  const steps=[1,2,3,4].map(i=>`
+    <div class="step">
+      <div class="n">0${i}</div>
+      <h3>${t("step"+i+"_t")}</h3>
+      <p>${t("step"+i+"_d")}</p>
+    </div>`).join("");
+  document.getElementById("steps").innerHTML=steps;
+
+  // cases
+  document.getElementById("cases").innerHTML=CASES.map(c=>`
+    <div class="case">
+      <div class="head">
+        <div class="mark" style="border-color:${c.accent}">${c.mark}</div>
+        <div class="name">${c.name}</div>
+      </div>
+      <div class="lbl">${t("ex_idea")}</div>
+      <div class="idea">${(c.idea&&c.idea[LANG])||c.idea.en||""}</div>
+      <div class="arrow">↓</div>
+      <div class="lbl">${t("ex_result")}</div>
+      <div class="result">${(c.result&&c.result[LANG])||c.result.en||""}</div>
+      <a class="open" href="${c.url}" target="_blank" rel="noopener">${t("open")} →</a>
+    </div>`).join("");
+
+  // links with language passthrough
+  document.getElementById("ctaBtn").href = MAN.botUrl + LANG;
+  document.getElementById("hubLink").href = MAN.hubUrl + (MAN.hubUrl.includes("?")?"&":"?") + "lang=" + LANG;
+  document.getElementById("authorLink").href = MAN.authorUrl;
+
+  buildLangMenu();
+}
+function set(id,val){const el=document.getElementById(id); if(el)el.textContent=val;}
+
+function buildLangMenu(){
+  const menu=document.getElementById("langMenu");
+  menu.innerHTML=MAN.languages.map(l=>`
+    <button role="menuitem" data-l="${l}" aria-current="${l===LANG}">${LANG_NAMES[l]||l.toUpperCase()}</button>`).join("");
+  menu.querySelectorAll("button").forEach(b=>{
+    b.onclick=()=>{ setLang(b.dataset.l); };
+  });
+}
+const LANG_NAMES={ru:"Русский",en:"English",pt:"Português",es:"Español",de:"Deutsch"};
+
+async function setLang(l){
+  if(l===LANG){closeLangMenu();return;}
+  LANG=l; localStorage.setItem("forge_lang",l);
+  const u=new URL(location); u.searchParams.set("lang",l); history.replaceState({},"",u);
+  UI=await getJSON(`ui/ui.${l}.json`, UI_FALLBACK[l]||UI_FALLBACK.ru);
+  render(); closeLangMenu();
+}
+function closeLangMenu(){const m=document.getElementById("langMenu");m.classList.remove("open");
+  document.getElementById("langBtn").setAttribute("aria-expanded","false");}
+
+// minimal embedded fallback (only if fetch blocked, e.g. file://)
+const UI_FALLBACK={ru:{lang_name:"Русский",tagline:"Расскажи идею — ИИ соберёт продукт",sub:"Принеси сырую мысль. Уйдёшь с живым продуктом — как эти.",scroll:"Как это работает",how_title:"Путь идеи",step1_t:"Идея",step1_d:"Расскажи в двух словах",step2_t:"ИИ-разбор",step2_d:"Идея обретает форму",step3_t:"Сборка",step3_d:"Делаем рабочий MVP",step4_t:"Живой продукт",step4_d:"Ссылка, первые люди",ex_title:"Живые примеры",ex_sub:"Каждый начинался как одна фраза",ex_idea:"Идея",ex_result:"Стало",cta:"У меня есть идея",cta_note:"ИИ разберёт её бесплатно",open:"Открыть",theme_light:"День",theme_dark:"Ночь"}};
+const CASES_FALLBACK=[
+ {id:"treino",mark:"🌊",accent:"#c89b6d",name:"Treino",url:"https://ikartuzov-hub.github.io/treino/",idea:{ru:"Учить язык по своей истории",en:"Learn a language from your own story"},result:{ru:"Живое приложение, платящие ученики",en:"Live app, paying students"}},
+ {id:"birdie",mark:"🐦",accent:"#F0C24A",name:"Birdie",url:"https://ikartuzov-hub.github.io/birdie/",idea:{ru:"Помощник гольф-ученику",en:"An assistant for golf learners"},result:{ru:"Мультиязычный PWA-ассистент, пилот",en:"Multilingual PWA assistant, in pilot"}},
+ {id:"relic",mark:"🪙",accent:"#C0894B",name:"Relic",url:"https://t.me/RelicFindBot",idea:{ru:"Оценить старую монету",en:"Value an old coin"},result:{ru:"AI-бот собран за полдня",en:"AI bot built in half a day"}}];
+
+async function init(){
+  applyTheme(curTheme());
+  MAN=await getJSON("manifest.json",MANIFEST_DEFAULT);
+  LANG=pickLang(MAN);
+  UI=await getJSON(`ui/ui.${LANG}.json`, UI_FALLBACK[LANG]||UI_FALLBACK.ru);
+  const cj=await getJSON("data/cases.json",{cases:CASES_FALLBACK});
+  CASES=cj.cases||CASES_FALLBACK;
+  render();
+
+  // reveal only on first clean visit (no ?lang in URL)
+  if(!params.get("lang") && !localStorage.getItem("forge_seen")){
+    document.body.classList.add("reveal");
+    localStorage.setItem("forge_seen","1");
+  }
+
+  document.getElementById("themeBtn").onclick=()=>{applyTheme(curTheme()==="light"?"dark":"light"); render();};
+  const lb=document.getElementById("langBtn");
+  lb.onclick=(e)=>{e.stopPropagation(); const m=document.getElementById("langMenu");
+    const open=m.classList.toggle("open"); lb.setAttribute("aria-expanded",open);};
+  document.addEventListener("click",closeLangMenu);
+  document.getElementById("langMenu").onclick=(e)=>e.stopPropagation();
+  document.getElementById("brand").onclick=(e)=>{e.preventDefault(); window.scrollTo({top:0,behavior:"smooth"});};
+}
+init();
+</script>
+</body>
+</html>

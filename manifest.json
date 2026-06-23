@@ -1,0 +1,10 @@
+{
+  "product": "Forge",
+  "tagline_key": "tagline",
+  "default": "ru",
+  "languages": ["ru", "en", "pt", "es", "de"],
+  "botUrl": "https://t.me/SeedWaveBot?start=forge_",
+  "hubUrl": "https://ikartuzov-hub.github.io/seedwave-catalog/hub/",
+  "authorUrl": "https://www.linkedin.com/in/igor-kartuzov/",
+  "accent": "#E2622E"
+}

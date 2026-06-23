@@ -1,0 +1,67 @@
+{
+  "cases": [
+    {
+      "id": "treino",
+      "mark": "🌊",
+      "accent": "#c89b6d",
+      "name": "Treino",
+      "url": "https://ikartuzov-hub.github.io/treino/",
+      "idea": {
+        "ru": "Учить язык по своей истории",
+        "en": "Learn a language from your own story",
+        "pt": "Aprender uma língua pela tua própria história",
+        "es": "Aprender un idioma con tu propia historia",
+        "de": "Eine Sprache anhand der eigenen Geschichte lernen"
+      },
+      "result": {
+        "ru": "Живое приложение, платящие ученики",
+        "en": "Live app, paying students",
+        "pt": "App ao vivo, alunos pagantes",
+        "es": "App en vivo, alumnos que pagan",
+        "de": "Live-App, zahlende Lernende"
+      }
+    },
+    {
+      "id": "birdie",
+      "mark": "🐦",
+      "accent": "#F0C24A",
+      "name": "Birdie",
+      "url": "https://ikartuzov-hub.github.io/birdie/",
+      "idea": {
+        "ru": "Помощник гольф-ученику",
+        "en": "An assistant for golf learners",
+        "pt": "Um assistente para alunos de golfe",
+        "es": "Un asistente para alumnos de golf",
+        "de": "Ein Assistent für Golf-Lernende"
+      },
+      "result": {
+        "ru": "Мультиязычный PWA-ассистент, пилот",
+        "en": "Multilingual PWA assistant, in pilot",
+        "pt": "Assistente PWA multilíngue, em piloto",
+        "es": "Asistente PWA multilingüe, en piloto",
+        "de": "Mehrsprachiger PWA-Assistent, im Pilot"
+      }
+    },
+    {
+      "id": "relic",
+      "mark": "🪙",
+      "accent": "#C0894B",
+      "name": "Relic",
+      "url": "https://t.me/RelicFindBot",
+      "idea": {
+        "ru": "Оценить старую монету",
+        "en": "Value an old coin",
+        "pt": "Avaliar uma moeda antiga",
+        "es": "Valorar una moneda antigua",
+        "de": "Eine alte Münze bewerten"
+      },
+      "result": {
+        "ru": "AI-бот собран за полдня",
+        "en": "AI bot built in half a day",
+        "pt": "Bot de IA criado em meio dia",
+        "es": "Bot de IA creado en medio día",
+        "de": "KI-Bot in einem halben Tag gebaut"
+      }
+    }
+  ]
+}
