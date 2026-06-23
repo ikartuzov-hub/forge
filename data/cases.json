@@ -2,7 +2,7 @@
   "cases": [
     {
       "id": "treino",
-      "mark": "🌊",
+      "mark": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"#c89b6d\" stroke-width=\"7.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M18 32 Q31 19 43 31 Q50 38 57 31 Q69 19 82 32\"/><path d=\"M50 33 V80\"/></svg>",
       "accent": "#c89b6d",
       "name": "Treino",
       "url": "https://ikartuzov-hub.github.io/treino/",
@@ -23,7 +23,7 @@
     },
     {
       "id": "birdie",
-      "mark": "🐦",
+      "mark": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"#F0C24A\" stroke-width=\"7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M33 16 L33 72\"/><path d=\"M33 16 C57 16 57 42 35 43 C59 44 59 72 33 72\"/><path d=\"M20 86 Q30 80 40 86 Q50 92 60 86 Q70 80 80 86\"/></svg>",
       "accent": "#F0C24A",
       "name": "Birdie",
       "url": "https://ikartuzov-hub.github.io/birdie/",
@@ -44,7 +44,7 @@
     },
     {
       "id": "relic",
-      "mark": "🪙",
+      "mark": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"#C0894B\" stroke-width=\"7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M26 14 L26 66\"/><path d=\"M26 14 C52 14 52 41 28 42 L26 42\"/><path d=\"M34 42 Q49 53 58 66\"/><path d=\"M14 84 Q26 78 38 84 Q50 90 62 84 Q74 78 86 84\"/></svg>",
       "accent": "#C0894B",
       "name": "Relic",
       "url": "https://t.me/RelicFindBot",
